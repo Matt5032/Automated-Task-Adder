@@ -2,10 +2,7 @@ import time
 from tkinter import messagebox
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
-import HarvestTaskAdderMain as htam
-
-
-
+import HarvestTaskAdderUI as htau
 
 version = 1.1
 
@@ -22,6 +19,59 @@ module_prefix = []
 
 user_email = ""
 user_password = ""
+
+def on_close():
+    try:
+        if len(module_prefix) > 0:
+            clear_before_close = messagebox.askyesno("Clear Tasks",
+                                                     "Would you like to clear your current tasks before you go?")
+        else:
+            root.root.destroy()
+        if clear_before_close is True:
+            root.clear_module_prefixes()
+            htau.save_data()
+            root.root.destroy()
+        else:
+            root.root.destroy()
+    except:
+        return
+
+import pickle
+
+
+def start_up():
+    load_data()
+
+def save_data():
+
+    save_list = [user_email, user_password, module_prefix]
+
+    pickle.dump(save_list, open("save.p", "wb"))
+
+    print(pickle.load(open("save.p", "rb")))
+
+def load_data():
+    global user_email
+    global user_password
+    global module_prefix
+
+    load_list = pickle.load(open("save.p", "rb"))
+    user_email = load_list[0]
+    user_password = load_list[1]
+    for i in load_list[2]:
+        module_prefix.append(i)
+
+root = htau.Main_Window()
+
+try:
+    htau.start_up()
+except:
+    pass
+
+def call_task_complete(prefix_num):
+    root.task_complete(prefix_num)
+
+
 
 
 
@@ -94,7 +144,7 @@ def run_task_add_script():
                         print(module + ": " + task + " Added")
                         entry_tally += 1
                         driver.implicitly_wait(5)
-                    htam.root.task_complete(prefix_num)
+                    root.task_complete(prefix_num)
 
             #confirm message all tasks have been entered
             print(str(entry_tally) + " Entries Completed")
@@ -106,3 +156,8 @@ def run_task_add_script():
                                                     + "Rerunning the Process with the same data will not account for entries already entered into Harvest"))
     else:
         print("Email or Password is Blank.")
+
+
+root.main_widgets()
+root.root.protocol("WM_DELETE_WINDOW", on_close)
+root.root.mainloop()

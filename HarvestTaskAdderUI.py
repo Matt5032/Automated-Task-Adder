@@ -7,36 +7,6 @@ from tkinter import ttk as ttk
 from tkinter import messagebox
 
 
-import pickle
-
-
-def start_up():
-    load_data()
-
-def save_data():
-
-    save_list = [htas.user_email, htas.user_password, htas.module_prefix]
-
-    pickle.dump(save_list, open("save.p", "wb"))
-
-    print(pickle.load(open("save.p", "rb")))
-
-def load_data():
-    #global user_email
-    #global user_password
-    #global module_prefix
-
-    load_list = pickle.load(open("save.p", "rb"))
-    htas.user_email = load_list[0]
-    htas.user_password = load_list[1]
-    for i in load_list[2]:
-        htas.module_prefix.append(i)
-
-
-
-
-
-
 
 class Main_Window:
     def __init__(self):
@@ -217,7 +187,7 @@ class Main_Window:
         self.user_email_entry.insert(0, htas.user_email)
         self.user_password_entry.insert(0, htas.user_password)
 
-        save_data()
+        htas.save_data()
 
     def run_confirm_dialog(self):
 
@@ -256,7 +226,7 @@ class Main_Window:
             htas.user_password = new_user_password
             print("New User Name: " + new_user_email)
             print("New Password: " + new_user_password)
-            save_data()
+            htas.save_data()
 
 
 
