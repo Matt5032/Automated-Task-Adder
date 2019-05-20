@@ -1,6 +1,3 @@
-'''TODO
--Add tkinter to all tkinter imports
-'''
 #General tkinter import
 import tkinter
 import HarvestTaskAdderScript as htas
@@ -8,6 +5,7 @@ import HarvestTaskAdderScript as htas
 from tkinter import ttk as ttk
 #importing messagebox because tkinter.messagebox doesnt work for some reason
 from tkinter import messagebox
+
 
 import pickle
 
@@ -132,10 +130,6 @@ class Main_Window:
         self.user_password_entry.insert(0, htas.user_password)
         self.submit_credentials = tkinter.Button(self.credentials_frame, text="Save", command=self.save_credentials)
 
-        #self.options_frame = Frame(self.tab2)
-        #self.options_label = Label(self.options_frame,  text="Options", width=19, font=self.label_font)
-        #self.clear_on_startup_checkbox = Checkbutton(self.options_frame, variable=self.clear_prefixes_on_startup, text="Clear Prefixes on Startup")
-
 
     #POPUP MENU______________________________________________________________________________________________________
         self.popup_menu = tkinter.Menu(self.root, tearoff=0)
@@ -187,10 +181,6 @@ class Main_Window:
         self.user_password_entry.grid(padx=5, pady=5)
         self.submit_credentials.grid(padx=5, pady=5)
 
-        #self.options_frame.grid()
-        #self.options_label.grid(pady=(15, 0))
-        #self.clear_on_startup_checkbox.grid()
-
         self.update_listboxes()
 
 
@@ -216,8 +206,6 @@ class Main_Window:
         print(htas.module_prefix)
 
     def update_listboxes(self):
-        global user_email
-        global user_password
         self.module_prefix_list.delete(0, 'end')
         self.task_suffix_list.delete(0, 'end')
 
@@ -248,12 +236,17 @@ class Main_Window:
             else:
                 return
 
+    def task_complete(self, prefix_num):
+        prefix = htas.module_prefix[prefix_num]
+
+        self.module_prefix_list.itemconfig(prefix, {'bg':'green'})
+
+
+
 
 
     #SETTINGS BUTTONS_____________________________________________________
     def save_credentials(self):
-        #global user_email
-        #global user_password
         if self.user_email_entry.get() == "" or self.user_password_entry.get() == "":
             messagebox.showinfo("Error", "Please Fill in All Fields to Save Credentials")
         else:

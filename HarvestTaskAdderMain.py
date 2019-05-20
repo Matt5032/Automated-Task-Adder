@@ -7,7 +7,7 @@ def on_close():
     try:
         if len(htas.module_prefix) > 0:
             clear_before_close = messagebox.askyesno("Clear Tasks",
-                                                             "Would you like to clear your current tasks before you go?")
+                                                     "Would you like to clear your current tasks before you go?")
         else:
             root.root.destroy()
         if clear_before_close is True:
