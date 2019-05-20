@@ -1,8 +1,13 @@
-from tkinter import *
+'''TODO
+-Add tkinter to all tkinter imports
+'''
+#General tkinter import
+import tkinter
 import HarvestTaskAdderScript as htas
-from tkinter import messagebox
+#importing ttk wrapper for tkinter
 from tkinter import ttk as ttk
-import os
+#importing messagebox because tkinter.messagebox doesnt work for some reason
+from tkinter import messagebox
 
 import pickle
 
@@ -38,7 +43,7 @@ def load_data():
 class Main_Window:
     def __init__(self):
         #ROOT SETTINGS___________________________________________________
-        self.root = Tk()
+        self.root = tkinter.Tk()
         self.root.configure(bg="lightgrey")
         #self.root_geometry = self.root.geometry('500x300')
         self.root.resizable(False, False)
@@ -67,51 +72,51 @@ class Main_Window:
         self.entry_box_text = str()
 
         #CHECKBOX VARIABLES_______________________________________________
-        self.clear_prefixes_on_startup = IntVar()
+        self.clear_prefixes_on_startup = tkinter.IntVar()
 
         #WIDGET DEFINITIONS
             #MODULES TAB WIDGETS__________________________________________
-        self.task_suffix_frame = Frame(self.tab1,
+        self.task_suffix_frame = tkinter.Frame(self.tab1,
                                        padx=35,
                                        bg="lightgrey")
-        self.task_suffix_list_label = Label(self.task_suffix_frame,
+        self.task_suffix_list_label = tkinter.Label(self.task_suffix_frame,
                                             text="Module Suffixs",
                                             font=self.label_font,
                                             bg="lightgrey")
-        self.task_suffix_list = Listbox(self.task_suffix_frame,
+        self.task_suffix_list = tkinter.Listbox(self.task_suffix_frame,
                                         width=25,
-                                        justify=CENTER,
+                                        justify=tkinter.CENTER,
                                         font=self.text_font)
 
-        self.module_prefix_frame = Frame(self.tab1,
+        self.module_prefix_frame = tkinter.Frame(self.tab1,
                                          padx=35,
                                          bg="lightgrey")
-        self. module_prefix_list_label = Label(self.module_prefix_frame,
+        self. module_prefix_list_label = tkinter.Label(self.module_prefix_frame,
                                                text="Module Prefixs",
                                                font=self.label_font,
                                                bg="lightgrey")
-        self. module_prefix_list = Listbox(self.module_prefix_frame,
-                                           width=25, justify=CENTER,
+        self. module_prefix_list = tkinter.Listbox(self.module_prefix_frame,
+                                           width=25, justify=tkinter.CENTER,
                                            font=self.text_font)
 
 
-        self.text_entry_frame = Frame(self.tab1,
+        self.text_entry_frame = tkinter.Frame(self.tab1,
                                       padx=10,
                                       pady=10,
                                       bg="lightgrey")
-        self.text_entry = Entry(self.text_entry_frame)
-        self.text_submit_button = Button(self.text_entry_frame,
+        self.text_entry = tkinter.Entry(self.text_entry_frame)
+        self.text_submit_button = tkinter.Button(self.text_entry_frame,
                                          text="Submit",
                                          command=self.submit_text_entry,
                                          font=self.button_font,
                                          width=7)
-        self.clear_list_button = Button(self.text_entry_frame,
+        self.clear_list_button = tkinter.Button(self.text_entry_frame,
                                         text="Clear",
                                         command=self.clear_module_prefixes,
                                         font=self.button_font,
                                         width=7)
 
-        self.run_button = Button(self.tab1,
+        self.run_button = tkinter.Button(self.tab1,
                                  text="Run",
                                  width=10,
                                  height=2,
@@ -119,13 +124,13 @@ class Main_Window:
                                  command=self.run_confirm_dialog)
 
             #SETTINGS TAB WIDGETS_________________________________________________
-        self.credentials_frame = Frame(self.tab2)
-        self.user_credentials_label = Label(self.credentials_frame, text="Harvest User")
-        self.user_email_entry = Entry(self.credentials_frame, width=30, justify="center")
+        self.credentials_frame = tkinter.Frame(self.tab2)
+        self.user_credentials_label = tkinter.Label(self.credentials_frame, text="Harvest User")
+        self.user_email_entry = tkinter.Entry(self.credentials_frame, width=30, justify="center")
         self.user_email_entry.insert(0, htas.user_email)
-        self.user_password_entry = Entry(self.credentials_frame, width=30, justify="center", show="*")
+        self.user_password_entry = tkinter.Entry(self.credentials_frame, width=30, justify="center", show="*")
         self.user_password_entry.insert(0, htas.user_password)
-        self.submit_credentials = Button(self.credentials_frame, text="Save", command=self.save_credentials)
+        self.submit_credentials = tkinter.Button(self.credentials_frame, text="Save", command=self.save_credentials)
 
         #self.options_frame = Frame(self.tab2)
         #self.options_label = Label(self.options_frame,  text="Options", width=19, font=self.label_font)
@@ -133,7 +138,7 @@ class Main_Window:
 
 
     #POPUP MENU______________________________________________________________________________________________________
-        self.popup_menu = Menu(self.root, tearoff=0)
+        self.popup_menu = tkinter.Menu(self.root, tearoff=0)
         self.popup_menu.add_command(label="Delete", command=self.delete_selected)
         self.module_prefix_list.bind("<Button-3>", self.popup)
 
@@ -217,9 +222,9 @@ class Main_Window:
         self.task_suffix_list.delete(0, 'end')
 
         for i in htas.TASK_SUFFIX:
-            self.task_suffix_list.insert(END, i)
+            self.task_suffix_list.insert(tkinter.END, i)
         for i in htas.module_prefix:
-            self.module_prefix_list.insert(END, i)
+            self.module_prefix_list.insert(tkinter.END, i)
 
         self.user_email_entry.insert(0, htas.user_email)
         self.user_password_entry.insert(0, htas.user_password)

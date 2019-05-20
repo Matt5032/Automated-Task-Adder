@@ -1,6 +1,5 @@
 import time
 from tkinter import messagebox
-import tkinter as tk
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
 
@@ -29,7 +28,7 @@ def run_task_add_script():
     if user_password != "" or user_email != "":
         try:
             #Open Chrome and Go to HarvestApp.com
-            driver = webdriver.Chrome("C:/Users/Matt/pycharmprojects/harvesttaskadder/chromedriver.exe")
+            driver = webdriver.Chrome("C:/Users/Matthew/pycharmprojects/harvesttaskadder/chromedriver.exe")
             print("Chrome Opened")
             driver.get('https://id.getharvest.com/harvest/sign_in');
             print("Went to Harvest Sign in")
