@@ -2,7 +2,9 @@ import time
 from tkinter import messagebox
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
-import HarvestTaskAdderUI as htau
+#import HarvestTaskAdderUI as htau
+from HarvestTaskAdderUI import Main_Window
+import pickle
 
 version = 1.1
 
@@ -29,14 +31,14 @@ def on_close():
             root.root.destroy()
         if clear_before_close is True:
             root.clear_module_prefixes()
-            htau.save_data()
+            save_data()
             root.root.destroy()
         else:
             root.root.destroy()
     except:
         return
 
-import pickle
+
 
 
 def start_up():
@@ -61,17 +63,12 @@ def load_data():
     for i in load_list[2]:
         module_prefix.append(i)
 
-root = htau.Main_Window()
+root = Main_Window()
 
 try:
-    htau.start_up()
+    start_up()
 except:
     pass
-
-def call_task_complete(prefix_num):
-    root.task_complete(prefix_num)
-
-
 
 
 
@@ -144,7 +141,7 @@ def run_task_add_script():
                         print(module + ": " + task + " Added")
                         entry_tally += 1
                         driver.implicitly_wait(5)
-                    root.task_complete(prefix_num)
+                    #root.task_complete(prefix_num)
 
             #confirm message all tasks have been entered
             print(str(entry_tally) + " Entries Completed")
